@@ -1,0 +1,87 @@
+set prompt = '[%n@%m %c]$ '
+%n for the username, %m for the hostname up to the first ., and %c for the last directory part. There are a large number of such substitutions available, you can find a list of them in tcsh(1), duplicated below for convenience.
+
+Using `pwd` won't work, because the cshrc file is read only once on shelll startup, not on every directory change.
+
+I would like to know the difference between .cshrc file and .bashrc file.
+
+The cshrc file is used by csh and tcsh, the bashrc file is used by bash. Although they serve the same purpose, they're different programs (like ~/.mozilla/firefox and ~/.config/chromium).
+%/  The current working directory.
+%~  The current working directory, but with one's  home  direc‐
+    tory  represented  by `~' and other users' home directories
+    represented  by  `~user'  as  per  Filename   substitution.
+    `~user'  substitution happens only if the shell has already
+    used `~user' in a pathname in the current session.
+%c[[0]n], %.[[0]n]
+    The trailing component of the current working directory, or
+    n  trailing  components if a digit n is given.  If n begins
+    with `0', the number  of  skipped  components  precede  the
+    trailing  component(s)  in the format `/<skipped>trailing'.
+    If the ellipsis shell variable is set,  skipped  components
+    are  represented  by  an  ellipsis  so  the  whole  becomes
+    `...trailing'.  `~' substitution is done as in `%~'  above,
+    but  the  `~'  component  is ignored when counting trailing
+    components.
+%C  Like %c, but without `~' substitution.
+%h, %!, !
+    The current history event number.
+%M  The full hostname.
+%m  The hostname up to the first `.'.
+%S (%s)
+    Start (stop) standout mode.
+%B (%b)
+    Start (stop) boldfacing mode.
+%U (%u)
+    Start (stop) underline mode.
+%t, %@
+    The time of day in 12-hour AM/PM format.
+%T  Like `%t', but in 24-hour format (but see  the  ampm  shell
+    variable).
+%p  The  `precise'  time  of  day in 12-hour AM/PM format, with
+    seconds.
+%P  Like `%p', but in 24-hour format (but see  the  ampm  shell
+    variable).
+\c  c is parsed as in bindkey.
+^c  c is parsed as in bindkey.
+%%  A single `%'.
+%n  The user name.
+%N  The effective user name.
+%j  The number of jobs.
+%d  The weekday in `Day' format.
+%D  The day in `dd' format.
+%w  The month in `Mon' format.
+%W  The month in `mm' format.
+%y  The year in `yy' format.
+%Y  The year in `yyyy' format.
+%l  The shell's tty.
+%L  Clears  from the end of the prompt to end of the display or
+    the end of the line.
+%$  Expands the shell or environment variable name  immediately
+    after the `$'.
+%#  `>'  (or the first character of the promptchars shell vari‐
+    able) for normal users, `#' (or  the  second  character  of
+    promptchars) for the superuser.
+%{string%}
+    Includes string as a literal escape sequence.  It should be
+    used only to change terminal attributes and should not move
+    the  cursor  location.  This cannot be the last sequence in
+    prompt.
+%?  The return code of the command  executed  just  before  the
+    prompt.
+%R  In prompt2, the status of the parser.  In prompt3, the cor‐
+    rected string.  In history, the history string.
+
+`%B', `%S', `%U' and `%{string%}' are available in only  eight-
+bit-clean shells; see the version shell variable.
+
+The  bold,  standout  and underline sequences are often used to
+distinguish a superuser shell.  For example,
+
+    > set prompt = "%m [%h] %B[%@]%b [%/] you rang? "
+    tut [37] [2:54pm] [/usr/accts/sys] you rang? _
+
+If `%t', `%@', `%T', `%p', or `%P' is used, and noding  is  not
+set,  then print `DING!' on the change of hour (i.e, `:00' min‐
+utes) instead of the actual time.
+
+Set by default to `%# ' in interactive shells.
