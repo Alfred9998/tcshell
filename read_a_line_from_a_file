@@ -1,0 +1,25 @@
+# in cshell error method
+set lines=`cat /etc/passwd`
+set i=1
+while ( $i <= $#lines )
+    echo $lines[$i]
+    @ i = $i + 1
+end
+# in cshell right method
+foreach line (`awk '{print $0}' test_file`)
+  echo $line
+end
+
+set text = 'awk -v ln=$j '{if (NR==ln) print $0}' sources.lis'
+
+
+# in bash shell
+cat /etc/passwd | while read blah; do
+    echo $blah
+done
+
+while read line
+do
+  echo $line
+done < /etc/passwd
+
